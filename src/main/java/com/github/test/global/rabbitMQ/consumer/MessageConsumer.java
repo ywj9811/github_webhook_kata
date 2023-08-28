@@ -25,5 +25,6 @@ public class MessageConsumer {
         PR pr = webhookToPR.fromWebhook(prRequest);
         prRepository.save(pr);
         log.info("pr 저장");
+        log.info("receive : {}", prRequest.toString());
     }
 }
