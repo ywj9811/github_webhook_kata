@@ -1,5 +1,8 @@
 package com.github.test.domain.github.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.test.domain.github.dto.GithubPRRequest;
+import com.github.test.domain.github.dto.GithubPRRequest.PullRequest;
 import com.github.test.domain.github.dto.GithubWebhookRequest;
 import com.github.test.domain.github.service.GithubWebhookService;
 import com.github.test.global.dto.SuccessResponse;
@@ -23,8 +26,8 @@ public class GithubWebhookController {
     }
 
     @PostMapping("/webhook/{userId}")
-    public ResponseEntity getWebhook(@PathVariable String userId, @RequestBody String payload) {
-        log.info("webHook : {}", payload);
-        return ResponseEntity.ok(SuccessResponse.create(HttpStatus.OK.value(), "ok"));
+    public void getWebhook(@PathVariable String userId, @RequestBody GithubPRRequest prRequest) throws JsonProcessingException {
+        log.info("webHook : {}", prRequest.toString());
+        webHookService.sendMessage(prRequest, userId);
     }
 }

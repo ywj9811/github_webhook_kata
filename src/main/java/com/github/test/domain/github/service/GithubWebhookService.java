@@ -1,6 +1,9 @@
 package com.github.test.domain.github.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.test.domain.github.dto.GithubPRRequest;
 import com.github.test.global.dto.SuccessResponse;
+import com.github.test.global.rabbitMQ.producer.MessageProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class GithubWebhookService {
     private final WebClient webClient;
+    private final MessageProducer messageProducer;
 
     public SuccessResponse<Mono<String>> setWebhook(String host, String accessToken, String userId, String repo) {
         String api = "https://api.github.com/repos/" + userId + "/" + repo + "/hooks";
@@ -33,5 +37,9 @@ public class GithubWebhookService {
                 .bodyToMono(String.class)
                 .map(response -> "Webhook registered successfully!");
         return SuccessResponse.create(HttpStatus.OK.value(), "ok", result);
+    }
+
+    public void sendMessage(GithubPRRequest prRequest, String userId) throws JsonProcessingException {
+        messageProducer.sendMessage(prRequest, userId);
     }
 }
