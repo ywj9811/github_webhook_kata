@@ -1,6 +1,6 @@
 package com.github.test.domain.user.service;
 
-import com.github.test.domain.github.service.GithubService;
+import com.github.test.domain.github.service.GithubOauthService;
 import com.github.test.domain.user.entity.User;
 import com.github.test.domain.user.repository.UserRepository;
 import com.github.test.global.dto.SuccessResponse;
@@ -24,7 +24,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Service
 @Slf4j
 public class UserService {
-    private final GithubService githubService;
+    private final GithubOauthService githubService;
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
     public Mono<SuccessResponse<TokenInfoResponse>> login(String accessToken) {

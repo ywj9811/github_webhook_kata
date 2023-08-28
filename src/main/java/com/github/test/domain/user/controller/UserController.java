@@ -1,6 +1,6 @@
 package com.github.test.domain.user.controller;
 
-import com.github.test.domain.github.dto.GithubRequest;
+import com.github.test.domain.github.dto.GithubTokenRequest;
 import com.github.test.domain.user.service.UserService;
 import com.github.test.global.dto.SuccessResponse;
 import com.github.test.global.security.jwt.TokenInfoResponse;
@@ -17,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/github/login")
-    public ResponseEntity<Mono<SuccessResponse<TokenInfoResponse>>> githubLogin(@RequestBody GithubRequest request) {
+    public ResponseEntity<Mono<SuccessResponse<TokenInfoResponse>>> githubLogin(@RequestBody GithubTokenRequest request) {
         Mono<SuccessResponse<TokenInfoResponse>> login = userService.login(request.getAccessToken());
         return ResponseEntity.ok(login);
     }

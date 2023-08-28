@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GithubResponse {
+public class GithubOauthResponse {
     String login;
     String name;
     String avatar_url;
