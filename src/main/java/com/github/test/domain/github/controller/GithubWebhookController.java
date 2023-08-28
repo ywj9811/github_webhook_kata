@@ -26,8 +26,9 @@ public class GithubWebhookController {
     }
 
     @PostMapping("/webhook/{userId}")
-    public void getWebhook(@PathVariable String userId, @RequestBody GithubPRRequest prRequest) throws JsonProcessingException {
-        log.info("webHook : {}", prRequest.toString());
-        webHookService.sendMessage(prRequest, userId);
+//    GithubPRRequest prReques
+    public void getWebhook(@PathVariable String userId, @RequestBody String payload) throws JsonProcessingException {
+        log.info("webHook : {}", payload.toString());
+//        webHookService.sendMessage(prRequest, userId);
     }
 }
