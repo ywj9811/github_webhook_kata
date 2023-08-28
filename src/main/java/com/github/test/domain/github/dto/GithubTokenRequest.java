@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class GithubRequest {
+public class GithubTokenRequest {
     private String accessToken;
 }

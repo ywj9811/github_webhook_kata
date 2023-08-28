@@ -1,6 +1,6 @@
 package com.github.test.domain.github.service;
 
-import com.github.test.domain.github.dto.GithubResponse;
+import com.github.test.domain.github.dto.GithubOauthResponse;
 import com.github.test.domain.github.utils.GithubToUser;
 import com.github.test.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class GithubService {
+public class GithubOauthService {
     private final WebClient webClient;
     private final GithubToUser githubToUser;
     public Mono<User> getUserData(String accessToken) {
@@ -25,7 +25,7 @@ public class GithubService {
                 //적절한 예외 처리
                 .onStatus((HttpStatus) -> HttpStatus.ACCEPTED.is5xxServerError(), response -> Mono.error(new ClassCastException()))
                 //적절한 예외 처리
-                .bodyToMono(GithubResponse.class)
+                .bodyToMono(GithubOauthResponse.class)
                 .flatMap(githubToUser::fromGit);
     }
 }
